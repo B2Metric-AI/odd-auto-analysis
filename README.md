@@ -12,12 +12,12 @@ Analysis was performed using AUTOMOTIVE DISTRIBUTERS’ ASSOCIATION (ODD) data i
 First create a virtual environment with conda or venv inside a temp folder, then activate it.
 
 ```
-virtualenv auto-analysis-venv
+virtualenv odd-auto-analysis-venv
 
 # Windows
-auto-analysis-venv\Scripts\activate
+odd-auto-analysis-venv\Scripts\activate
 # Or Linux
-source venv/bin/activate
+source  odd-auto-analysis-venv/bin/activate
 ```
 
 Clone the git repo, then install the requirements with pip:

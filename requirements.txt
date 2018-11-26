@@ -1,0 +1,7 @@
+numpy==1.15.3
+pandas==0.23.4
+dash==0.30.0
+dash_core_components==0.38.1
+dash_html_components==0.13.2
+plotly==3.4.2
+xlrd==1.1.0
