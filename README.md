@@ -1,7 +1,7 @@
-# auto-anaysis
-This project is an interactive web application prepared using automobile market data in Turkey.
+# ODD Auto Analysis
+This project is an interactive web dash prepared using automobile market data in Turkey.
 
-Through the application you can see the share of brands in Turkey sales. You can also see visualizations of data according to these selections by selecting brand and specific date ranges.
+Through the application you can see the share of auto brands sales of amount in Turkey.You can also see visualizations of data according to these selections by selecting brand and specific date ranges.
 
 ## Getting Started
 
