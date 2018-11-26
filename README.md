@@ -30,3 +30,4 @@ Run the app
 ```
 python app.py
 ```
+![animated1](odd-auto-b2metric.gif)
