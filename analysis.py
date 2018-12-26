@@ -11,7 +11,7 @@ import plotly.graph_objs as go
 __author__ = "Fatih Celik"
 
 __license__ = "ALv2"
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 __maintainer__ = "Fatih Celik"
 __status__ = "Prototype"
 
@@ -46,12 +46,16 @@ def readFiles(file, *files):
 # @return edited dataframe
 def editingExcel(dataFrame):
 
+
+    if dataFrame.columns[0] == "Otomobil Ve H.Ticari Araç Pazarı Marka/Model Perakende Satışlar (Kasım'2018) \n(RETAIL PC & LCV BRAND SALES November'2018)":
+        dataFrame.drop(['Unnamed: 16', 'Unnamed: 17', 'Unnamed: 18'], axis=1, inplace=True)
+
     # 2018 data does not include the whole year
-    if len(dataFrame.columns) == 15:
+    if len(dataFrame.columns) == 16:
 
         # new column names list
         replaceColumnList = ['Brand', 'Category', 'Model', 'Segment', 'January', 'February', 'March',
-                         'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Total']
+                         'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'Total']
 
         # replace column names
         dataFrame.columns = replaceColumnList

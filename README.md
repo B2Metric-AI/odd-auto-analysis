@@ -5,7 +5,7 @@ Through the application you can see the share of auto brands sales of amount in 
 
 ## Getting Started
 
-Analysis was performed using AUTOMOTIVE DISTRIBUTERS’ ASSOCIATION (ODD) data in this application. ODD data can be found on [this page](http://www.odd.org.tr/web_2837_1/neuralnetwork.aspx?type=36).
+Analysis was performed using AUTOMOTIVE DISTRIBUTERS ASSOCIATION (ODD) data in this application. ODD data can be found on [this page](http://www.odd.org.tr/web_2837_1/neuralnetwork.aspx?type=73).
 
 ### Running the app locally
 

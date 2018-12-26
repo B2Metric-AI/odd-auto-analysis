@@ -14,7 +14,7 @@ import plotly.graph_objs as go
 __author__ = "Fatih Celik"
 
 __license__ = "ALv2"
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 __maintainer__ = "Fatih Celik"
 __status__ = "Prototype"
 
@@ -35,27 +35,28 @@ file10 = "oddautodata/MODELDOKUMUARALIK2014.xls"
 file11 = "oddautodata/MODELDOKUMARALIK2015.xls"
 file12 = "oddautodata/Model Dokumu Aralık'2016.xls"
 file13 = "oddautodata/Model Dokumu Aralık 2017.xlsx"
-file14 = "oddautodata/Model Dokumu Ekim'2018.xls"
+file14 = "oddautodata/Model Dokumu Kasım'2018.xlsx"
 
 # read files
 data04, dataAll = anlys.readFiles(file0, file1, file2, file3, file4, file5,
-                                file6, file7, file8, file9, file10, file11,
-                                file12, file13, file14)
-
+                                  file6, file7, file8, file9, file10, file11,
+                                  file12, file13, file14)
 
 editDataList = []
 
-# editing dataframe
+#  editing dataframe
 editDataList.append(anlys.editingExcel(data04))
 
-for i in range(0,len(dataAll)):
-
+for i in range(0, len(dataAll)):
     editDataList.append(anlys.editingExcel(dataAll[i]))
 
 # total sales by brand
-totalSalesBrands = anlys.totalSalesByBrand(editDataList[0], editDataList[1],editDataList[2],editDataList[3],editDataList[4],
-                           editDataList[5],editDataList[6],editDataList[7],editDataList[8],editDataList[9],
-                           editDataList[10],editDataList[11],editDataList[12], editDataList[13], editDataList[14])
+totalSalesBrands = anlys.totalSalesByBrand(editDataList[0], editDataList[1], editDataList[2], editDataList[3],
+                                           editDataList[4],
+                                           editDataList[5], editDataList[6], editDataList[7], editDataList[8],
+                                           editDataList[9],
+                                           editDataList[10], editDataList[11], editDataList[12], editDataList[13],
+                                           editDataList[14])
 
 # appended data
 appendData = anlys.appendDataByYear(totalSalesBrands)
@@ -66,43 +67,45 @@ appendData = anlys.dateRange(appendData, len(appendData))
 pieData = anlys.drawPieChart(appendData)
 
 total = anlys.drawTableForTotalSales(appendData)
-# draw scatter & pie chart with dataframe
-# @return a value that creates a scatter & pie chart using data for the web interface
+
+
+#  draw scatter & pie chart with dataframe
+#  @return a value that creates a scatter & pie chart using data for the web interface
 def drawChart():
     return html.Div(
         children=[
 
             # scatter-chart div
             html.Div(
-                    dcc.Graph(
-                        id='scatter-chart',
+                dcc.Graph(
+                    id='scatter-chart',
 
-                        figure= {
-                            "data": [
-                                go.Scatter(x=appendData.index, y=appendData.alfaromeo, name='alfaromeo')
-                            ],
+                    figure={
+                        "data": [
+                            go.Scatter(x=appendData.index, y=appendData.alfaromeo, name='alfaromeo')
+                        ],
 
-                            'layout': {
-                                'title':'alfaromeo SALES'
-                            }
-                        },
-                    ),
+                        'layout': {
+                            'title': 'alfaromeo SALES'
+                        }
+                    },
+                ),
 
-                # scatter-chart style
+                #  scatter-chart style
                 style={
                     'float': 'left',
                     'display': 'inline-block'
                 }
             ),
 
-            # pie chart div
+            #  pie chart div
             html.Div(
                 dcc.Graph(
                     id='pie-chart',
 
                     figure={
                         "data": [
-                            # go.Pie(labels=appendData.index, values=appendData.alfaromeo)
+                            #  go.Pie(labels=appendData.index, values=appendData.alfaromeo)
                         ],
 
                         'layout': {
@@ -120,6 +123,7 @@ def drawChart():
         ],
     )
 
+
 # main Layout
 app.layout = html.Div([
     # title
@@ -135,15 +139,15 @@ app.layout = html.Div([
                        'margin-top': '26',
                        'margin-bottom': '0'
                        }),
-        # company Logo
-        html.Img(src="https://s3.eu-central-1.amazonaws.com/b2metric.com/b2metric-logo-email.png",
-                style={
-                    'margin-bottom':'5px',
-                    'margin-right':'20',
-                    'height': '80px',
-                    'float': 'right'
-                },
-        ),
+        #  company Logo
+        html.Img(src="https://s3.eu-central-1.amazonaws.com/b2metric.com/B2M_logo_vertical.png",
+                 style={
+                     'margin-top': '15px',
+                     'margin-right': '20',
+                     'height': '60px',
+                     'float': 'right'
+                 },
+                 ),
     ]),
 
     # select fields
@@ -151,44 +155,44 @@ app.layout = html.Div([
         id='selectBrand',
         options=[
             {'label': name.upper(), 'value': name}
-                 for name in appendData.columns],
+            for name in appendData.columns],
         value='volkswagen',
         placeholder='Select Brand',
         style={
-            'marginLeft':'185',
-            'marginTop':'50',
+            'marginLeft': '185',
+            'marginTop': '50',
             'float': 'left',
-            'width':'200px',
-            }
+            'width': '200px',
+        }
     ),
 
     dcc.Dropdown(
         id='selectStartDate',
         options=[
             {'label': name, 'value': name}
-                 for name in appendData.index],
-        value='2017-10-01',
+            for name in appendData.index],
+        value='2017-11-01',
         placeholder='Select Start Date',
         style={
-            'marginTop':'50',
-            'width':'200px',
+            'marginTop': '50',
+            'width': '200px',
             'float': 'left',
-            'marginLeft':'105'
-            }
+            'marginLeft': '105'
+        }
     ),
 
     dcc.Dropdown(
         id='selectEndDate',
         options=[
             {'label': name, 'value': name}
-                 for name in appendData.index],
-        value='2018-10-01',
+            for name in appendData.index],
+        value='2018-11-01',
         placeholder='Select End Date',
         style={
-            'marginTop':'50',
-            'float':'left',
-            'width':'200px',
-            'marginLeft':'70'
+            'marginTop': '50',
+            'float': 'left',
+            'width': '200px',
+            'marginLeft': '70'
         }
     ),
 
@@ -198,24 +202,21 @@ app.layout = html.Div([
     ),
 ], className="container")
 
-
 # callback excepitons
 app.config.supress_callback_exceptions = True
 
+
 # callback functions for selected values in dropdowns
 @app.callback(
-    dash.dependencies.Output(component_id='scatter-chart',component_property='figure'),
+    dash.dependencies.Output(component_id='scatter-chart', component_property='figure'),
     [dash.dependencies.Input(component_id='selectBrand', component_property='value'),
      dash.dependencies.Input(component_id='selectStartDate', component_property='value'),
      dash.dependencies.Input(component_id='selectEndDate', component_property='value')])
-
 # update scatter-chart with start date, end date and selected brand
 def updateScatterChart(brand, startDate, endDate):
-
     for b in appendData.columns:
 
         if brand == b:
-
 
             # sales within the desired range of the brand if there is a start and end date
             if startDate != None and endDate != None:
@@ -224,12 +225,12 @@ def updateScatterChart(brand, startDate, endDate):
                 data = anlys.specificRangeSalesByBrand(appendData, startDate, endDate, brand)
                 pieData = anlys.drawPieChart(appendData, startDate, endDate)
                 return {
-                    "data":[
-                        go.Scatter(x = data.index, y=data[brand], name = brand)
+                    "data": [
+                        go.Scatter(x=data.index, y=data[brand], name=brand)
                     ],
 
                     'layout': {
-                    'title': brand[0].upper()+brand[1:] + ' Sales (Total Sales: '+str(total)+')'
+                        'title': brand[0].upper() + brand[1:] + ' Sales (Total Sales: ' + str(total) + ')'
                     }
                 }
 
@@ -239,23 +240,21 @@ def updateScatterChart(brand, startDate, endDate):
                 total = anlys.drawTableForTotalSales(appendData, brand)
                 return {
                     "data": [
-                        go.Scatter(x = appendData.index, y = appendData[brand], name=brand)
+                        go.Scatter(x=appendData.index, y=appendData[brand], name=brand)
                     ],
 
                     'layout': {
-                        'title': brand[0].upper()+brand[1:] + ' Sales (Total Sales: '+str(total)+')',
+                        'title': brand[0].upper() + brand[1:] + ' Sales (Total Sales: ' + str(total) + ')',
                     }
                 }
 
 
 @app.callback(
-    dash.dependencies.Output(component_id='pie-chart',component_property='figure'),
+    dash.dependencies.Output(component_id='pie-chart', component_property='figure'),
     [dash.dependencies.Input(component_id='selectStartDate', component_property='value'),
      dash.dependencies.Input(component_id='selectEndDate', component_property='value')])
-
 # update scatter-chart with start date and end date
 def updatePieChart(startDate, endDate):
-
     # sales in the selected date range
     if startDate != None and endDate != None:
         pieData = anlys.drawPieChart(appendData, startDate, endDate)
@@ -265,7 +264,7 @@ def updatePieChart(startDate, endDate):
             ],
 
             'layout': {
-                'title': 'Sales shares of brands between '+ startDate+' & '+ endDate
+                'title': 'Sales shares of brands between ' + startDate + ' & ' + endDate
             }
         }
 
@@ -283,9 +282,6 @@ def updatePieChart(startDate, endDate):
         }
 
 
-
 # main
 if __name__ == '__main__':
     app.run_server(debug=True)
-
-
